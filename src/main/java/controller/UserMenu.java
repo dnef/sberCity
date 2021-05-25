@@ -17,28 +17,26 @@ public class UserMenu {
         String strPath = scanner.nextLine();
         Path path = Paths.get(strPath);
         List<City> cityList = new GetListCity().getListCityFile(path);
+        CitySort citySort = new CitySort();
         System.out.println("Действие:");
         String str = "";
         while (true) {
             str = scanner.nextLine();
             switch (str) {
                 case "1":
-                    new CitySort().allCity(cityList);
-                    cityList.forEach(System.out::println);
+                    citySort.allCity(cityList).forEach(System.out::println);
                     break;
                 case "2":
-                    new CitySort().sortName(cityList);
-                    cityList.forEach(System.out::println);
+                    citySort.sortName(cityList).forEach(System.out::println);
                     break;
                 case "3":
-                    new CitySort().sortNameDistrict(cityList);
-                    cityList.forEach(System.out::println);
+                    citySort.sortNameDistrict(cityList).forEach(System.out::println);
                     break;
                 case "4":
-                    System.out.println(new CitySort().maxPopulation(cityList));
+                    System.out.println(citySort.maxPopulation(cityList));
                     break;
                 case "5":
-                    Map<String, Integer> summCity = new CitySort().cityForRegion(cityList);
+                    Map<String, Integer> summCity = citySort.cityForRegion(cityList);
                     summCity.entrySet().forEach(entry -> {
                         System.out.println(entry.getKey() + " " + entry.getValue());
                     });

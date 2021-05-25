@@ -24,13 +24,12 @@ public class FileParser {
 //                     ,Long.parseLong(cityString[4]), localDate));
                 cityList.add(new City(Long.parseLong(scanner.next().trim()), scanner.next().trim(), scanner.next().trim(),
                         scanner.next().trim(), Long.parseLong(scanner.next().trim()),
-                        LocalDate.of(scanner.nextInt(), 1, 1)));
+                        LocalDate.of(Integer.parseInt(scanner.next()), 1, 1)));
             }
             scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("-------------");
         return cityList;
     }
 }

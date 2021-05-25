@@ -6,7 +6,9 @@ import service.CitySort;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -53,10 +55,16 @@ public class CitySortTest {
     @Test
     public void maxPopulation() {
         String str = citySort.maxPopulation(cityActual);
-        Assert.assertEquals("[2] = 144246");
+        Assert.assertEquals("[1] = 144246",str);
     }
 
     @Test
     public void cityForRegion() {
+        Map<String,Integer> expected = new HashMap<String,Integer>();
+        expected.put("А",2);
+        expected.put("Б",1);
+        expected.put("Х",1);
+
+        Assert.assertEquals(expected,citySort.cityForRegion(cityActual));
     }
 }
