@@ -1,39 +1,47 @@
+package service;
+
 import entity.City;
 
+import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CitySort {
-    public List<City> AllCity(List allCity){
+public class CitySort implements ICitySort{
+    @Override
+    public List<City> allCity(List allCity){
         return allCity;
     }
+    @Override
     public List<City> sortName(List<City> allCity){
         Collections.sort(allCity,
                 Comparator.comparing(City::getName,String::compareToIgnoreCase)
                         .reversed());
         return allCity;
     }
+    @Override
     public List<City> sortNameRegion(List<City> allCity){
         Collections.sort(allCity,
-                Comparator.comparing(City::getName).thenComparing(City::getRegion)
+                Comparator.comparing(City::getDistrict).thenComparing(City::getName)
                         .reversed());
         return allCity;
     }
+    @Override
     public String maxPopulation(List<City> allCity){
         City[] cities = allCity.toArray(new City[0]);
-        City temp = cities[0];
+        City max = cities[0];
         int index =0;
         for (int i=1;i< cities.length;i++) {
-            if (temp.getPopulation()<cities[i].getPopulation()){
-                temp=cities[i];
+            if (max.getPopulation()<cities[i].getPopulation()){
+                max=cities[i];
                 index = i;
             }
         }
-        return new String("["+index+"] = "+temp.getPopulation());
+        return new String("["+index+"] = "+max.getPopulation());
     }
-public Map<String,Integer> cityForRegion(List<City> allCity){
-        Map<String,Integer> mapSummCityRegion = allCity.stream().collect(Collectors.toMap(City::getRegion,city -> 1,Integer::sum));
+    @Override
+    public Map<String,Integer> cityForRegion(List<City> allCity){
+        Map<String,Integer> mapSummCityRegion = allCity.stream().
+                collect(Collectors.toMap(City::getRegion,city -> 1,Integer::sum));
         return mapSummCityRegion;
 }
-   // Map<Integer,Integer> mapSolvedTask = sortDate(after,before).stream().filter(p->p.getEvent().equals(Event.SOLVE_TASK)).collect(Collectors.toMap(Log::getEventNumb, log -> 1,Integer::sum));
 }
