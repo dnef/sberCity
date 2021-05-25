@@ -31,7 +31,7 @@ public class UserMenu {
                     cityList.forEach(System.out::println);
                     break;
                 case "3":
-                    new CitySort().sortNameRegion(cityList);
+                    new CitySort().sortNameDistrict(cityList);
                     cityList.forEach(System.out::println);
                     break;
                 case "4":

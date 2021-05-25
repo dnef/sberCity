@@ -42,10 +42,18 @@ public class CitySortTest {
 
     @Test
     public void sortNameRegion() {
+        City city1 = new City(1L,"А","А","Ю",12248L, LocalDate.of(1973,1,1));
+        City city2 = new City(2L,"М","А","Ю",144246L, LocalDate.of(1857,1,1));
+        City city3 = new City(3L,"Г","Б","С",56928L, LocalDate.of(1830,1,1));
+        City city4 = new City(4L,"Ю","Х","С",17111L, LocalDate.of(1867,1,1));
+        cityExpected = Arrays.asList(city2,city1,city4,city3);
+        Assert.assertEquals(cityExpected,citySort.sortNameDistrict(cityActual));
     }
 
     @Test
     public void maxPopulation() {
+        String str = citySort.maxPopulation(cityActual);
+        Assert.assertEquals("[2] = 144246");
     }
 
     @Test

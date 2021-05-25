@@ -18,8 +18,7 @@ public class CitySort implements ICitySort{
                         .reversed());
         return allCity;
     }
-    @Override
-    public List<City> sortNameRegion(List<City> allCity){
+    public List<City> sortNameDistrict(List<City> allCity){
         Collections.sort(allCity,
                 Comparator.comparing(City::getDistrict).thenComparing(City::getName)
                         .reversed());
