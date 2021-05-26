@@ -30,19 +30,19 @@ public class UserMenu {
             str = scanner.nextLine();
             switch (str) {
                 case "1":
-                    citySort.allCity(cityList).forEach(System.out::println);
+                    citySort.allCity(path).forEach(System.out::println);
                     break;
                 case "2":
-                    citySort.sortName(cityList).forEach(System.out::println);
+                    citySort.sortByName(cityList).forEach(System.out::println);
                     break;
                 case "3":
-                    citySort.sortNameDistrict(cityList).forEach(System.out::println);
+                    citySort.sortByDistrictAndName(cityList).forEach(System.out::println);
                     break;
                 case "4":
                     System.out.println(citySort.maxPopulation(cityList));
                     break;
                 case "5":
-                    Map<String, Integer> summCity = citySort.cityForRegion(cityList);
+                    Map<String, Integer> summCity = citySort.cityByForAndRegion(cityList);
                     summCity.entrySet().forEach(entry -> {
                         System.out.println(entry.getKey() + " " + entry.getValue());
                     });

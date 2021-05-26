@@ -3,8 +3,16 @@ package entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class City implements Serializable {
+    private Long id;
+    private String name;
+    private String region;
+    private String district;
+    private Long population;
+    private LocalDate foundation;
+
     public City() {
     }
 
@@ -17,18 +25,7 @@ public class City implements Serializable {
         this.foundation = foundation;
     }
 
-    // Порядковый номер записи справочника
-    private Long id;
-    // наименование города
-    private String name;
-    //регион
-    private String region;
-    //федеральный округ
-    private String district;
-    //количество жителей города
-    private Long population;
-    // дата основания или первое упоминание
-    private LocalDate foundation;
+
 
     public Long getId() {
         return id;
@@ -85,12 +82,12 @@ public class City implements Serializable {
 
         City city = (City) o;
 
-        if (id != null ? !id.equals(city.id) : city.id != null) return false;
-        if (name != null ? !name.equals(city.name) : city.name != null) return false;
-        if (region != null ? !region.equals(city.region) : city.region != null) return false;
-        if (district != null ? !district.equals(city.district) : city.district != null) return false;
-        if (population != null ? !population.equals(city.population) : city.population != null) return false;
-        return foundation != null ? foundation.equals(city.foundation) : city.foundation == null;
+        if (!Objects.equals(id, city.id)) return false;
+        if (!Objects.equals(name, city.name)) return false;
+        if (!Objects.equals(region, city.region)) return false;
+        if (!Objects.equals(district, city.district)) return false;
+        if (!Objects.equals(population, city.population)) return false;
+        return Objects.equals(foundation, city.foundation);
     }
 
     @Override
