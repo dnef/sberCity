@@ -1,4 +1,0 @@
-05-26 16:44:08 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLException: Таблица "CITY" не найдена
-Table "CITY" not found; SQL statement:
-DROP TABLE CITY [42102-161]

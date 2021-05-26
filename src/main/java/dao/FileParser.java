@@ -23,10 +23,11 @@ public class FileParser {
                         LocalDate.of(Integer.parseInt(scanner.next()), 1, 1)));
             }
             scanner.close();
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        }catch (IOException e) {
-            System.out.println("File read error");e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("File read error");
+            e.printStackTrace();
         }
         return cityList;
     }

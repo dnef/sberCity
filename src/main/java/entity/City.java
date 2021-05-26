@@ -26,7 +26,6 @@ public class City implements Serializable {
     }
 
 
-
     public Long getId() {
         return id;
     }
@@ -108,7 +107,7 @@ public class City implements Serializable {
                 ", region='" + region + '\'' +
                 ", district='" + district + '\'' +
                 ", population=" + population +
-                ", foundation='" + foundation.getYear() +'\''+
+                ", foundation='" + foundation.getYear() + '\'' +
                 '}';
     }
 }

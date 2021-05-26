@@ -1,21 +1,21 @@
 package dao;
 
 import entity.City;
-import service.CitySort;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class DaoSortDatabaseImpl implements IDaoSortDatabase {
+public class DaoDatabaseImpl implements IDaoDatabase {
 
     @Override
     public List<City> allCity() {
-        Statement statement = new DataBaseConnection().connection();
-        try{
+        try (Statement statement = new DataBaseConnection().connection()) {
             ResultSet resultSet;
             resultSet = statement.executeQuery("SELECT * FROM CITY");
             List<City> cityList = new ArrayList<>();
@@ -30,17 +30,17 @@ public class DaoSortDatabaseImpl implements IDaoSortDatabase {
                 city.setFoundation(date);
                 cityList.add(city);
             }
+            resultSet.close();
             return cityList;
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         return null;
     }
 
     public List<City> sortByNameDESC() {
-        Statement statement = new DataBaseConnection().connection();
-        try{
+        try (Statement statement = new DataBaseConnection().connection()) {
             ResultSet resultSet;
             resultSet = statement.executeQuery("SELECT * FROM CITY ORDER BY NAME DESC");
             List<City> cityList = new ArrayList<>();
@@ -55,6 +55,7 @@ public class DaoSortDatabaseImpl implements IDaoSortDatabase {
                 city.setFoundation(date);
                 cityList.add(city);
             }
+            resultSet.close();
             return cityList;
 
         } catch (SQLException throwables) {
@@ -65,10 +66,9 @@ public class DaoSortDatabaseImpl implements IDaoSortDatabase {
 
     @Override
     public List<City> sortByDistrictAndName() {
-        Statement statement = new DataBaseConnection().connection();
-        try{
+        try (Statement statement = new DataBaseConnection().connection()) {
             ResultSet resultSet;
-            resultSet = statement.executeQuery("SELECT * FROM CITY ORDER BY DISTRICT, NAME DESC");
+            resultSet = statement.executeQuery("SELECT * FROM CITY ORDER BY NAME , DISTRICT DESC");
             List<City> cityList = new ArrayList<>();
             while (resultSet.next()) {
                 City city = new City();
@@ -81,6 +81,7 @@ public class DaoSortDatabaseImpl implements IDaoSortDatabase {
                 city.setFoundation(date);
                 cityList.add(city);
             }
+            resultSet.close();
             return cityList;
 
         } catch (SQLException throwables) {
@@ -91,13 +92,13 @@ public class DaoSortDatabaseImpl implements IDaoSortDatabase {
 
     @Override
     public String maxPopulation() {
-        Statement statement = new DataBaseConnection().connection();
-        try{
+        try (Statement statement = new DataBaseConnection().connection()) {
             ResultSet resultSet;
-            resultSet = statement.executeQuery("SELECT MAX(POPULATION) FROM CITY ORDER BY DISTRICT, NAME DESC");
-            int id = resultSet.getInt("ID");
-            int max = resultSet.getInt("POPULATION");
-            return id +" = "+ max;
+            resultSet = statement.executeQuery("SELECT ID,POPULATION FROM CITY WHERE POPULATION = (SELECT MAX(POPULATION) FROM CITY)");
+            resultSet.next();
+            //System.out.println(resultSet.getString("ID")+"-"+resultSet.getString("POPULATION"));
+            resultSet.close();
+            return resultSet.getString("ID") + "-" + resultSet.getString("POPULATION");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -106,8 +107,22 @@ public class DaoSortDatabaseImpl implements IDaoSortDatabase {
     }
 
     @Override
-    public List cityByForAndRegion() {
-        List<City> list = (List<City>) new CitySort().cityByForAndRegion(allCity());
+    public Map<String, Integer> cityByForAndRegion() {
+        Map<String, Integer> mapCountName = new HashMap<>();
+        try (Statement statement = new DataBaseConnection().connection()) {
+            ResultSet resultSet;
+            resultSet = statement.executeQuery("select REGION , COUNT(*) AS COUNT from CITY GROUP BY NAME");
+            while (resultSet.next()) {
+                mapCountName.put(resultSet.getString("REGION"), resultSet.getInt("COUNT"));
+            }
+            resultSet.close();
+            return mapCountName;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return null;
     }
+
+    // List<City> list = (List<City>) new CitySort().cityByForAndRegion(allCity());
 }
