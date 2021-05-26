@@ -1,6 +1,6 @@
 package service;
 
-import dao.GetListCity;
+import dao.GetListCityFile;
 import entity.City;
 
 import java.nio.file.Path;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class CitySort implements ICitySort {
     @Override
     public List<City> allCity(Path path) {
-        return new GetListCity().getListCityFile(path);
+        return new GetListCityFile().getListCityFile(path);
     }
 
     @Override

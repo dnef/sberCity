@@ -1,11 +1,13 @@
 package controller;
 
-import dao.GetListCity;
+import dao.DaoSortDatabaseImpl;
+import dao.GetListCityFile;
 import entity.City;
 import service.CitySort;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,8 +18,10 @@ public class UserMenu {
         Scanner scanner = new Scanner(System.in);
         String strPath = scanner.nextLine();
         Path path = Paths.get(strPath);
-        List<City> cityList = new GetListCity().getListCityFile(path);
+        List<City> cityList = new GetListCityFile().getListCityFile(path);
+        List<City> cityListDatabase = new ArrayList<>();
         CitySort citySort = new CitySort();
+        DaoSortDatabaseImpl daoSortDatabase = new DaoSortDatabaseImpl();
         System.out.println("1-список объектов City " +
                 "\n2-Сортировка списка городов по наименованию в алфавитном порядке по убыванию без учета регистра" +
                 "\n3-Сортировка списка городов по федеральному округу и наименованию города внутри каждого федерального округа в алфавитном порядке по убыванию с учетом регистра" +
@@ -46,6 +50,18 @@ public class UserMenu {
                     summCity.entrySet().forEach(entry -> {
                         System.out.println(entry.getKey() + " " + entry.getValue());
                     });
+                    break;
+                case "6":
+                    new GetListCityFile().addListSityDatabase(path);
+                    break;
+                case"7":
+                    daoSortDatabase.allCity().forEach(System.out::println);
+                    break;
+                case "8":
+                    daoSortDatabase.sortByNameDESC().forEach(System.out::println);
+                    break;
+                case "9":
+                    daoSortDatabase.sortByDistrictAndName().forEach(System.out::println);
                     break;
                 case "exit":
                     scanner.close();

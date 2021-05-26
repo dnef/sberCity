@@ -5,6 +5,7 @@ import entity.City;
 import java.nio.file.Path;
 import java.util.List;
 
-public interface getData {
+public interface getDataFile {
     List<City> getListCityFile(Path path);
+    void addListSityDatabase(Path path);
 }
