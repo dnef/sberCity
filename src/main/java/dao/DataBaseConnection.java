@@ -12,7 +12,7 @@ public class DataBaseConnection {
         Statement st = null;
         try {
             Class.forName("org.h2.Driver").newInstance();
-            Connection conn = DriverManager.getConnection("jdbc:h2:mem:sber", "sa", "");
+            Connection conn = DriverManager.getConnection("jdbc:h2:/Users/a19215217/h2db/sber;AUTO_SERVER=TRUE", "sa", "");
             st = conn.createStatement();
             return st;
         } catch (InstantiationException | SQLException | ClassNotFoundException | IllegalAccessException e) {

@@ -17,7 +17,7 @@ public class UserMenu {
         System.out.println("Путь к файлу :");
         Scanner scanner = new Scanner(System.in);
         //String strPath = scanner.nextLine();
-        String strPath = "c:/temp/city.txt";
+        String strPath = "/Users/a19215217/sberCity/city.txt";
         Path path = Paths.get(strPath);
         List<City> cityList = new GetListCityFile().getListCityFile(path);
         List<City> cityListDatabase = new ArrayList<>();
